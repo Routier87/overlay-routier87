@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚚 Overlay routier87 - SCÈNES OBS</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- ===== CONTRÔLE DES SCÈNES ===== -->
+    <div id="scene-control">
+        <div class="control-title">
+            <i class="fas fa-sliders-h"></i>
+            CONTRÔLE SCÈNES ROUTIER87
+        </div>
+        <div class="control-buttons">
+            <button class="scene-btn start" onclick="loadScene('start')">
+                <i class="fas fa-play"></i> DÉBUT STREAM
+            </button>
+            <button class="scene-btn pause" onclick="loadScene('pause')">
+                <i class="fas fa-pause"></i> PAUSE
+            </button>
+            <button class="scene-btn inter" onclick="loadScene('inter')">
+                <i class="fas fa-exchange-alt"></i> INTERMISSION
+            </button>
+            <button class="scene-btn end" onclick="loadScene('end')">
+                <i class="fas fa-stop"></i> FIN STREAM
+            </button>
+            <button class="scene-btn hide" onclick="hideAll()">
+                <i class="fas fa-eye-slash"></i> CACHER
+            </button>
+        </div>
+        <div class="scene-info">
+            <div id="current-scene">Aucune scène active</div>
+            <div class="timer-display" id="scene-timer">--:--</div>
+        </div>
+    </div>
+
+    <!-- ===== LOGO TOUJOURS VISIBLE ===== -->
+    <div id="main-logo">
+        <div class="logo-container">
+            <img src="logo.png" alt="routier87" id="logo-img">
+        </div>
+        <div class="logo-text">
+            <h1>ROUTIER87</h1>
+            <p>🚚 Professional Gaming Driver</p>
+        </div>
+    </div>
+
+    <!-- ===== CONTENEUR DES SCÈNES ===== -->
+    <div id="scene-container">
+        <!-- Les scènes se chargeront ici dynamiquement -->
+    </div>
+
+    <!-- ===== AUDIO POUR LES SONS ===== -->
+    <audio id="audio-start" preload="auto">
+        <source src="sounds/start_sound.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="audio-pause" preload="auto">
+        <source src="sounds/pause_sound.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="audio-inter" preload="auto">
+        <source src="sounds/inter_sound.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="audio-end" preload="auto">
+        <source src="sounds/end_sound.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="config.js"></script>
+    <script>
+        // ===== GESTION DES SCÈNES =====
+        let currentScene = null;
+        let sceneTimer = null;
+        let activeTimer = null;
+
+        // Charger une scène
+        function loadScene(sceneName) {
+            // Arrêter la scène actuelle
+            if (currentScene) {
+                stopScene(currentScene);
+            }
+
+            // Cacher le contrôle
+            document.getElementById('scene-control').style.opacity = '0.2';
+
+            // Charger la scène
+            fetch(`scenes/scene_${sceneName}.html`)
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('scene-container').innerHTML = html;
+                    currentScene = sceneName;
+                    
+                    // Mettre à jour l'info
+                    document.getElementById('current-scene').textContent = 
+                        `Scène active: ${getSceneName(sceneName)}`;
+                    
+                    // Jouer le son
+                    playSceneSound(sceneName);
+                    
+                    // Démarrer les animations spécifiques
+                    startSceneEffects(sceneName);
+                    
+                    console.log(`🎬 Scène "${sceneName}" chargée`);
+                })
+                .catch(error => {
+                    console.error('Erreur chargement scène:', error);
+                    // Fallback : afficher directement
+                    showFallbackScene(sceneName);
+                });
+        }
+
+        // Arrêter une scène
+        function stopScene(sceneName) {
+            // Arrêter les timers
+            if (activeTimer) {
+                clearInterval(activeTimer);
+                activeTimer = null;
+            }
+            
+            // Arrêter les sons
+            const audio = document.getElementById(`audio-${sceneName}`);
+            if (audio) {
+                audio.pause();
+                audio.currentTime = 0;
+            }
+            
+            // Animation de sortie
+            document.getElementById('scene-container').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('scene-container').innerHTML = '';
+                document.getElementById('scene-container').style.opacity = '1';
+            }, 500);
+        }
+
+        // Cacher tout
+        function hideAll() {
+            if (currentScene) {
+                stopScene(currentScene);
+                currentScene = null;
+            }
+            document.getElementById('scene-control').style.opacity = '1';
+            document.getElementById('current-scene').textContent = 'Aucune scène active';
+            document.getElementById('scene-timer').textContent = '--:--';
+        }
+
+        // Jouer le son de la scène
+        function playSceneSound(sceneName) {
+            const audio = document.getElementById(`audio-${sceneName}`);
+            if (audio) {
+                audio.currentTime = 0;
+                audio.volume = 0.3;
+                audio.play().catch(e => console.log("Son non joué:", e));
+            }
+        }
+
+        // Démarrer les effets de scène
+        function startSceneEffects(sceneName) {
+            switch(sceneName) {
+                case 'start':
+                    startCountdown();
+                    break;
+                case 'pause':
+                    startPauseTimer();
+                    break;
+                case 'inter':
+                    startIntermissionTimer();
+                    break;
+                case 'end':
+                    startEndSequence();
+                    break;
+            }
+        }
+
+        // Compte à rebours début
+        function startCountdown() {
+            let count = 3;
+            const timerEl = document.getElementById('scene-timer');
+            
+            activeTimer = setInterval(() => {
+                if (count > 0) {
+                    timerEl.textContent = count;
+                    timerEl.style.color = count === 1 ? '#FF0000' : 
+                                        count === 2 ? '#FF8800' : '#FFAA00';
+                    count--;
+                } else {
+                    timerEl.textContent = "GO!";
+                    timerEl.style.color = '#00FF00';
+                    clearInterval(activeTimer);
+                    
+                    setTimeout(() => {
+                        timerEl.textContent = '--:--';
+                    }, 2000);
+                }
+            }, 1000);
+        }
+
+        // Timer pause
+        function startPauseTimer() {
+            let timeLeft = 300; // 5 minutes
+            const timerEl = document.getElementById('scene-timer');
+            
+            function updateTimer() {
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                timerEl.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                
+                if (timeLeft <= 60) {
+                    timerEl.style.color = '#FF4444';
+                }
+                
+                if (timeLeft <= 0) {
+                    timerEl.textContent = "REPRISE!";
+                    timerEl.style.color = '#00FF00';
+                    clearInterval(activeTimer);
+                }
+                
+                timeLeft--;
+            }
+            
+            updateTimer();
+            activeTimer = setInterval(updateTimer, 1000);
+        }
+
+        // Scène fallback si erreur
+        function showFallbackScene(sceneName) {
+            const scenes = {
+                start: `<div class="fallback-scene start">
+                    <h1>🎮 DÉBUT DU STREAM</h1>
+                    <p>La route commence ! routier87 est en ligne</p>
+                </div>`,
+                pause: `<div class="fallback-scene pause">
+                    <h1>⛽ PAUSE</h1>
+                    <p>Petit arrêt technique - Retour dans 5 minutes</p>
+                </div>`,
+                inter: `<div class="fallback-scene inter">
+                    <h1>🛣️ INTERMISSION</h1>
+                    <p>Changement de parcours en cours...</p>
+                </div>`,
+                end: `<div class="fallback-scene end">
+                    <h1>🏁 FIN DU STREAM</h1>
+                    <p>Merci d'avoir roulé avec routier87 !</p>
+                </div>`
+            };
+            
+            document.getElementById('scene-container').innerHTML = scenes[sceneName];
+        }
+
+        // Nom des scènes
+        function getSceneName(sceneKey) {
+            const names = {
+                start: 'Début Stream',
+                pause: 'Pause',
+                inter: 'Intermission',
+                end: 'Fin Stream'
+            };
+            return names[sceneKey] || sceneKey;
+        }
+
+        // Raccourcis clavier
+        document.addEventListener('keydown', (e) => {
+            switch(e.key) {
+                case '1': loadScene('start'); break;
+                case '2': loadScene('pause'); break;
+                case '3': loadScene('inter'); break;
+                case '4': loadScene('end'); break;
+                case '0': hideAll(); break;
+                case 'Escape': hideAll(); break;
+            }
+        });
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('🎬 Contrôleur de scènes routier87 prêt');
+            console.log('📁 Dossier:', window.location.pathname);
+        });
+    </script>
+</body>
+</html>
