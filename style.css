@@ -1,0 +1,206 @@
+/* ===== RESET & BASE ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', 'Arial', sans-serif;
+    color: white;
+    overflow: hidden;
+    width: 1920px;
+    height: 1080px;
+    position: relative;
+    background: transparent !important;
+}
+
+/* ===== CONTRÔLE SCÈNES ===== */
+#scene-control {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.85);
+    padding: 15px;
+    border-radius: 15px;
+    border: 2px solid rgba(255, 100, 0, 0.5);
+    z-index: 9999;
+    min-width: 300px;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.control-title {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #FFAA00;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.control-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.scene-btn {
+    padding: 12px 15px;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 0.9em;
+}
+
+.scene-btn:hover {
+    transform: translateY(-3px);
+    filter: brightness(1.2);
+}
+
+.scene-btn.start { background: linear-gradient(135deg, #4CAF50, #2E7D32); }
+.scene-btn.pause { background: linear-gradient(135deg, #FF9800, #EF6C00); }
+.scene-btn.inter { background: linear-gradient(135deg, #2196F3, #1565C0); }
+.scene-btn.end { background: linear-gradient(135deg, #9C27B0, #6A1B9A); }
+.scene-btn.hide { background: linear-gradient(135deg, #f44336, #c62828); }
+
+.scene-info {
+    background: rgba(255, 100, 0, 0.15);
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 0.9em;
+}
+
+#current-scene {
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #FFAA00;
+}
+
+.timer-display {
+    font-size: 1.8em;
+    font-weight: bold;
+    font-family: monospace;
+    color: #FFAA00;
+}
+
+/* ===== LOGO PRINCIPAL ===== */
+#main-logo {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    z-index: 9998;
+    animation: slideInLogo 1s ease-out;
+}
+
+@keyframes slideInLogo {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.logo-container {
+    width: 100px;
+    height: 100px;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 3px solid rgba(255, 100, 0, 0.7);
+    box-shadow: 0 0 30px rgba(255, 100, 0, 0.5);
+    animation: logoFloat 6s ease-in-out infinite;
+}
+
+@keyframes logoFloat {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    25% { transform: translateY(-10px) rotate(1deg); }
+    50% { transform: translateY(-5px) rotate(-1deg); }
+    75% { transform: translateY(-8px) rotate(2deg); }
+}
+
+#logo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.logo-text h1 {
+    font-size: 2.5em;
+    background: linear-gradient(to right, #FF5500, #FFAA00);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 5px;
+    letter-spacing: 1px;
+}
+
+.logo-text p {
+    font-size: 1.2em;
+    opacity: 0.9;
+}
+
+/* ===== CONTENEUR SCÈNES ===== */
+#scene-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+}
+
+/* ===== SCÈNES FALLBACK ===== */
+.fallback-scene {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.8);
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.fallback-scene h1 {
+    font-size: 4em;
+    margin-bottom: 30px;
+}
+
+.fallback-scene p {
+    font-size: 2em;
+    opacity: 0.9;
+}
+
+.fallback-scene.start { background: linear-gradient(135deg, rgba(76, 175, 80, 0.2), rgba(0, 0, 0, 0.8)); }
+.fallback-scene.pause { background: linear-gradient(135deg, rgba(255, 152, 0, 0.2), rgba(0, 0, 0, 0.8)); }
+.fallback-scene.inter { background: linear-gradient(135deg, rgba(33, 150, 243, 0.2), rgba(0, 0, 0, 0.8)); }
+.fallback-scene.end { background: linear-gradient(135deg, rgba(156, 39, 176, 0.2), rgba(0, 0, 0, 0.8)); }
+
+/* ===== RESPONSIVE OBS ===== */
+@media (max-width: 1920px) {
+    body {
+        transform: scale(calc(var(--obs-scale, 1)));
+        transform-origin: top left;
+    }
+}
