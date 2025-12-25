@@ -246,4 +246,575 @@
         /* ===== MESSAGE FINAL ===== */
         .end-message {
             font-size: 2.5em;
-            max-width: 1200
+            max-width: 1200px;
+            line-height: 1.6;
+            margin: 40px 0 60px;
+            padding: 40px 60px;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 30px;
+            backdrop-filter: blur(20px);
+            border: 4px solid rgba(156, 39, 176, 0.5);
+            box-shadow: 
+                0 20px 50px rgba(0, 0, 0, 0.4),
+                inset 0 0 50px rgba(156, 39, 176, 0.1);
+            animation: messageAppear 1s ease-out 1s both;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes messageAppear {
+            0% { 
+                opacity: 0;
+                transform: scale(0.9) rotate(-2deg);
+            }
+            100% { 
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        .end-message::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.05), 
+                transparent);
+            animation: messageShine 4s ease-in-out infinite;
+        }
+
+        @keyframes messageShine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        /* ===== STATISTIQUES FINALES ===== */
+        .final-stats {
+            display: flex;
+            gap: 60px;
+            margin: 40px 0;
+            animation: statsAppear 1s ease-out 1.5s both;
+        }
+
+        @keyframes statsAppear {
+            0% { 
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            100% { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .final-stat {
+            background: linear-gradient(135deg, 
+                rgba(156, 39, 176, 0.25) 0%, 
+                rgba(186, 104, 200, 0.15) 100%);
+            padding: 30px 50px;
+            border-radius: 25px;
+            min-width: 220px;
+            border: 3px solid rgba(156, 39, 176, 0.5);
+            backdrop-filter: blur(15px);
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .final-stat:hover {
+            transform: translateY(-15px) scale(1.1);
+            background: linear-gradient(135deg, 
+                rgba(156, 39, 176, 0.35) 0%, 
+                rgba(186, 104, 200, 0.25) 100%);
+            box-shadow: 
+                0 20px 40px rgba(156, 39, 176, 0.3),
+                inset 0 0 30px rgba(255, 255, 255, 0.1);
+        }
+
+        .final-stat::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.1), 
+                transparent);
+            transition: left 0.8s;
+        }
+
+        .final-stat:hover::before {
+            left: 100%;
+        }
+
+        .stat-number {
+            font-size: 4em;
+            font-weight: 900;
+            color: #CE93D8;
+            margin-bottom: 10px;
+            font-family: 'Courier New', monospace;
+            text-shadow: 0 0 20px rgba(206, 147, 216, 0.7);
+        }
+
+        .stat-label {
+            font-size: 1.6em;
+            opacity: 0.9;
+            letter-spacing: 1px;
+        }
+
+        /* ===== MERCI & RÉSEAUX ===== */
+        .thank-you {
+            font-size: 3em;
+            margin: 50px 0 30px;
+            animation: thankYouPulse 2s ease-in-out infinite;
+            background: linear-gradient(135deg, #9C27B0, #BA68C8);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            padding: 20px 40px;
+            border-radius: 20px;
+            border: 3px solid rgba(156, 39, 176, 0.5);
+        }
+
+        @keyframes thankYouPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .social-links {
+            display: flex;
+            gap: 40px;
+            margin-top: 30px;
+            animation: linksAppear 1s ease-out 2s both;
+        }
+
+        .social-link {
+            background: linear-gradient(135deg, 
+                rgba(156, 39, 176, 0.3) 0%, 
+                rgba(186, 104, 200, 0.2) 100%);
+            padding: 25px 40px;
+            border-radius: 20px;
+            font-size: 1.8em;
+            border: 3px solid rgba(156, 39, 176, 0.5);
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            min-width: 250px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .social-link:hover {
+            transform: translateY(-10px) scale(1.1);
+            background: linear-gradient(135deg, 
+                rgba(156, 39, 176, 0.5) 0%, 
+                rgba(186, 104, 200, 0.4) 100%);
+            box-shadow: 0 20px 40px rgba(156, 39, 176, 0.4);
+        }
+
+        /* ===== PROCHAIN STREAM ===== */
+        .next-stream {
+            margin-top: 50px;
+            padding: 30px 50px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 25px;
+            border: 3px solid rgba(0, 200, 100, 0.5);
+            animation: nextStreamAppear 1s ease-out 2.5s both;
+        }
+
+        .next-stream h3 {
+            font-size: 2.5em;
+            color: #4CAF50;
+            margin-bottom: 15px;
+        }
+
+        .next-stream p {
+            font-size: 2.2em;
+            color: #CE93D8;
+        }
+
+        /* ===== CONFETTIS FINAUX ===== */
+        .confetti-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 50;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--color);
+            border-radius: 50%;
+            animation: confettiFall 5s linear forwards;
+            opacity: 0.8;
+        }
+
+        @keyframes confettiFall {
+            0% {
+                transform: translateY(-100px) translateX(calc(var(--x) * 1920px)) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(1080px) translateX(calc(var(--x) * 1920px + var(--dx) * 200px)) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* ===== FOOTER FINAL ===== */
+        .final-footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-size: 2em;
+            padding: 25px;
+            background: linear-gradient(to top, 
+                rgba(0, 0, 0, 0.8) 0%,
+                rgba(156, 39, 176, 0.3) 50%,
+                transparent 100%);
+            border-top: 4px solid rgba(156, 39, 176, 0.6);
+            animation: footerAppear 1s ease-out 3s both;
+            z-index: 100;
+        }
+
+        .final-footer strong {
+            color: #CE93D8;
+            text-shadow: 0 0 10px rgba(206, 147, 216, 0.7);
+        }
+    </style>
+</head>
+<body>
+    <!-- Fond animé -->
+    <div class="end-bg"></div>
+
+    <!-- Soleil couchant -->
+    <div class="sunset"></div>
+
+    <!-- Route finale -->
+    <div class="final-road"></div>
+
+    <!-- Confettis -->
+    <div class="confetti-container" id="confetti"></div>
+
+    <!-- Contenu principal -->
+    <div class="end-container">
+        <div class="end-icon">🏁</div>
+        <h1 class="end-title">ARRIVÉE À BON PORT</h1>
+        <h2 class="end-subtitle">Merci d'avoir roulé avec routier87 !</h2>
+
+        <!-- Message final -->
+        <div class="end-message">
+            La route s'arrête ici pour aujourd'hui. Un immense merci à tous les routiers présents 
+            pour ce super voyage ! Vous avez été incroyables, merci pour vos encouragements, 
+            vos messages et votre bonne humeur. <br><br>
+            <span style="color: #CE93D8; font-weight: bold;">
+                On se retrouve très vite pour de nouvelles aventures !
+            </span>
+        </div>
+
+        <!-- Statistiques finales -->
+        <div class="final-stats">
+            <div class="final-stat">
+                <div class="stat-number" id="stat-hours">2:15</div>
+                <div class="stat-label">Heures de stream</div>
+            </div>
+            <div class="final-stat">
+                <div class="stat-number" id="stat-viewers">42</div>
+                <div class="stat-label">Spectateurs max</div>
+            </div>
+            <div class="final-stat">
+                <div class="stat-number" id="stat-followers">+8</div>
+                <div class="stat-label">Nouveaux follows</div>
+            </div>
+            <div class="final-stat">
+                <div class="stat-number" id="stat-likes">156</div>
+                <div class="stat-label">Likes ❤️</div>
+            </div>
+        </div>
+
+        <!-- Message de remerciement -->
+        <div class="thank-you">
+            MERCI À TOUTE LA TEAM ROUTIER87 ! 🚛💨
+        </div>
+
+        <!-- Liens réseaux -->
+        <div class="social-links">
+            <div class="social-link" onclick="openLink('twitter')">
+                <span style="color: #1DA1F2;">🐦</span>
+                Twitter : @routier87_live
+            </div>
+            <div class="social-link" onclick="openLink('discord')">
+                <span style="color: #7289DA;">🎮</span>
+                Discord routier87
+            </div>
+            <div class="social-link" onclick="openLink('youtube')">
+                <span style="color: #FF0000;">📺</span>
+                YouTube routier87
+            </div>
+        </div>
+
+        <!-- Prochain stream -->
+        <div class="next-stream">
+            <h3>📅 PROCHAIN DÉPART</h3>
+            <p>Demain à <strong style="color: #4CAF50;">20h00</strong> • Nouveau trajet prévu !</p>
+        </div>
+    </div>
+
+    <!-- Footer final -->
+    <div class="final-footer">
+        <strong>routier87</strong> - Professional Gaming Driver • À très vite sur la route ! 🚚✨
+    </div>
+
+    <script>
+        // ===== CONFIGURATION =====
+        const endConfig = {
+            streamDuration: "2:15",
+            maxViewers: 42,
+            newFollowers: 8,
+            totalLikes: 156,
+            nextStream: "à la prochaine",
+            socialLinks: {
+                twitter: "",
+                discord: "https://discord.gg/N5AbaAw7yu",
+                youtube: "https://www.youtube.com/@Routier87"
+            }
+        };
+
+        // ===== INITIALISATION =====
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("🏁 Scène Fin de Stream routier87 chargée");
+            
+            // Mettre à jour les statistiques
+            updateEndStats();
+            
+            // Lancer les confettis
+            launchConfetti();
+            
+            // Animation de la route
+            animateFinalRoad();
+            
+            // Sons de fin (optionnel)
+            playEndSounds();
+            
+            // Message de remerciement animé
+            animateThankYou();
+        });
+
+        // ===== FONCTIONS =====
+        function updateEndStats() {
+            document.getElementById('stat-hours').textContent = endConfig.streamDuration;
+            document.getElementById('stat-viewers').textContent = endConfig.maxViewers;
+            document.getElementById('stat-followers').textContent = `+${endConfig.newFollowers}`;
+            document.getElementById('stat-likes').textContent = endConfig.totalLikes;
+            
+            // Animation des chiffres
+            animateNumbers();
+        }
+
+        function animateNumbers() {
+            const numbers = document.querySelectorAll('.stat-number');
+            numbers.forEach((element, index) => {
+                const finalValue = element.textContent;
+                element.textContent = '0';
+                
+                let start = 0;
+                const end = parseInt(finalValue.replace('+', '').replace(':', ''));
+                const duration = 2000;
+                const increment = end / (duration / 16);
+                
+                const timer = setInterval(() => {
+                    start += increment;
+                    if (start >= end) {
+                        element.textContent = finalValue;
+                        clearInterval(timer);
+                    } else {
+                        if (index === 0) {
+                            // Format heures:minutes
+                            const hours = Math.floor(start / 60);
+                            const minutes = Math.floor(start % 60);
+                            element.textContent = `${hours}:${minutes.toString().padStart(2, '0')}`;
+                        } else {
+                            element.textContent = index === 2 ? `+${Math.floor(start)}` : Math.floor(start);
+                        }
+                    }
+                }, 16);
+            });
+        }
+
+        function launchConfetti() {
+            const container = document.getElementById('confetti');
+            const colors = ['#9C27B0', '#BA68C8', '#CE93D8', '#4CAF50', '#2196F3', '#FF9800'];
+            const count = 200;
+            
+            for (let i = 0; i < count; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.cssText = `
+                    --x: ${Math.random()};
+                    --dx: ${Math.random() * 2 - 1};
+                    --color: ${colors[Math.floor(Math.random() * colors.length)]};
+                    left: ${Math.random() * 100}%;
+                    animation-delay: ${Math.random() * 3}s;
+                    width: ${Math.random() * 15 + 10}px;
+                    height: ${Math.random() * 15 + 10}px;
+                    background: var(--color);
+                    border-radius: ${Math.random() > 0.5 ? '50%' : '0'};
+                    transform: rotate(${Math.random() * 360}deg);
+                `;
+                container.appendChild(confetti);
+            }
+            
+            // Relancer les confettis toutes les 5 secondes
+            setInterval(() => {
+                const newConfetti = document.createElement('div');
+                newConfetti.className = 'confetti';
+                newConfetti.style.cssText = `
+                    --x: ${Math.random()};
+                    --dx: ${Math.random() * 2 - 1};
+                    --color: ${colors[Math.floor(Math.random() * colors.length)]};
+                    left: ${Math.random() * 100}%;
+                    animation-delay: 0s;
+                    width: ${Math.random() * 15 + 10}px;
+                    height: ${Math.random() * 15 + 10}px;
+                    background: var(--color);
+                    border-radius: ${Math.random() > 0.5 ? '50%' : '0'};
+                `;
+                container.appendChild(newConfetti);
+                
+                // Nettoyer après animation
+                setTimeout(() => {
+                    if (newConfetti.parentNode) {
+                        newConfetti.remove();
+                    }
+                }, 5000);
+            }, 5000);
+        }
+
+        function animateFinalRoad() {
+            const road = document.querySelector('.final-road');
+            let position = 0;
+            
+            const interval = setInterval(() => {
+                position += 5;
+                road.style.transform = `perspective(500px) rotateX(45deg) translateY(${position}px)`;
+                
+                if (position > 300) {
+                    clearInterval(interval);
+                    road.style.opacity = '0';
+                }
+            }, 100);
+        }
+
+        function playEndSounds() {
+            // Optionnel : jouer un son de fin
+            // const audio = new Audio('sounds/end_sound.mp3');
+            // audio.volume = 0.3;
+            // audio.play().catch(e => console.log("Son non joué"));
+        }
+
+        function animateThankYou() {
+            const thankYou = document.querySelector('.thank-you');
+            let scale = 1;
+            let growing = true;
+            
+            setInterval(() => {
+                if (growing) {
+                    scale += 0.01;
+                    if (scale >= 1.05) growing = false;
+                } else {
+                    scale -= 0.01;
+                    if (scale <= 1) growing = true;
+                }
+                thankYou.style.transform = `scale(${scale})`;
+            }, 50);
+        }
+
+        function openLink(platform) {
+            const url = endConfig.socialLinks[platform];
+            if (url) {
+                // Pour OBS, on peut afficher une notification
+                console.log(`Ouverture de ${platform}: ${url}`);
+                
+                // Effet visuel sur le bouton cliqué
+                const link = event.target.closest('.social-link');
+                if (link) {
+                    link.style.background = 'linear-gradient(135deg, rgba(156, 39, 176, 0.7), rgba(186, 104, 200, 0.6))';
+                    link.style.transform = 'scale(1.2)';
+                    
+                    setTimeout(() => {
+                        link.style.background = '';
+                        link.style.transform = '';
+                    }, 300);
+                }
+            }
+        }
+
+        // ===== RACCOURCIS CLAVIER =====
+        document.addEventListener('keydown', function(e) {
+            switch(e.key) {
+                case 'c': // Plus de confettis
+                    launchConfetti();
+                    break;
+                case 'r': // Relancer l'animation de la route
+                    document.querySelector('.final-road').style.cssText = `
+                        position: absolute;
+                        width: 100%;
+                        height: 300px;
+                        bottom: 0;
+                        background: linear-gradient(to top, 
+                            rgba(0, 0, 0, 0.8) 0%,
+                            rgba(30, 30, 30, 0.6) 50%,
+                            transparent 100%);
+                        transform: perspective(500px) rotateX(45deg) translateY(0);
+                        opacity: 1;
+                    `;
+                    setTimeout(animateFinalRoad, 100);
+                    break;
+                case '1': openLink('twitter'); break;
+                case '2': openLink('discord'); break;
+                case '3': openLink('youtube'); break;
+                case '+': // Augmenter les follows
+                    endConfig.newFollowers++;
+                    updateEndStats();
+                    break;
+            }
+        });
+
+        // ===== API POUR OBS =====
+        window.END_SCENE = {
+            updateStats: (stats) => {
+                if (stats.streamDuration) endConfig.streamDuration = stats.streamDuration;
+                if (stats.maxViewers) endConfig.maxViewers = stats.maxViewers;
+                if (stats.newFollowers) endConfig.newFollowers = stats.newFollowers;
+                if (stats.totalLikes) endConfig.totalLikes = stats.totalLikes;
+                updateEndStats();
+            },
+            launchMoreConfetti: () => launchConfetti(),
+            setNextStream: (time) => {
+                endConfig.nextStream = time;
+                document.querySelector('.next-stream p').innerHTML = 
+                    `Demain à <strong style="color: #4CAF50;">${time}</strong> • Nouveau trajet prévu !`;
+            }
+        };
+    </script>
+</body>
+</html>
