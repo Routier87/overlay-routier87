@@ -1,0 +1,141 @@
+<div class="scene-pause">
+    <!-- Fond animé -->
+    <div class="scene-bg pause"></div>
+    
+    <!-- Contenu -->
+    <div class="scene-content">
+        <div class="scene-icon">⛽</div>
+        <h1 class="scene-title">PAUSE CARBURANT</h1>
+        <h2 class="scene-subtitle">routier87 reprend dans</h2>
+        
+        <div class="timer-container">
+            <div class="timer-display" id="pause-timer">05:00</div>
+            <div class="timer-label">minutes restantes</div>
+        </div>
+        
+        <div class="scene-message">
+            Petit arrêt technique pour routier87 ! C'est l'heure du café et du check-up. Restez dans les parages !
+        </div>
+        
+        <div class="scene-widgets">
+            <div class="widget">
+                <i class="fas fa-tv"></i>
+                <span>📺 Suivez routier87</span>
+            </div>
+            <div class="widget">
+                <i class="fas fa-bell"></i>
+                <span>🔔 Activez les notifications</span>
+            </div>
+            <div class="widget">
+                <i class="fas fa-comments"></i>
+                <span>💬 Tchat ouvert</span>
+            </div>
+        </div>
+        
+        <!-- Barre de progression -->
+        <div class="progress-bar">
+            <div class="progress-fill" id="pause-progress"></div>
+        </div>
+    </div>
+    
+    <!-- Animation café -->
+    <div class="coffee-animation">
+        <div class="coffee-cup">☕</div>
+        <div class="steam">♨</div>
+    </div>
+    
+    <style>
+        .scene-pause {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        .scene-bg.pause {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(255, 152, 0, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(239, 108, 0, 0.15) 0%, transparent 40%),
+                linear-gradient(135deg, 
+                    rgba(20, 15, 10, 0.95) 0%,
+                    rgba(40, 25, 15, 0.9) 100%);
+            animation: bgPause 6s ease-in-out infinite;
+        }
+        
+        @keyframes bgPause {
+            0%, 100% { opacity: 0.9; }
+            50% { opacity: 1; }
+        }
+        
+        .scene-content {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 50px;
+            z-index: 10;
+        }
+        
+        .scene-icon {
+            font-size: 6em;
+            margin-bottom: 30px;
+            animation: iconBounce 3s ease-in-out infinite;
+            filter: drop-shadow(0 5px 15px rgba(255, 152, 0, 0.5));
+        }
+        
+        @keyframes iconBounce {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-15px) rotate(-10deg); }
+            50% { transform: translateY(-5px) rotate(10deg); }
+            75% { transform: translateY(-10px) rotate(-5deg); }
+        }
+        
+        .scene-title {
+            font-size: 5em;
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #FF9800 0%, #EF6C00 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.3);
+        }
+        
+        .scene-subtitle {
+            font-size: 2.8em;
+            margin-bottom: 40px;
+            opacity: 0.95;
+        }
+        
+        .timer-container {
+            margin: 40px 0;
+            text-align: center;
+        }
+        
+        .timer-display {
+            font-size: 8em;
+            font-weight: 900;
+            font-family: 'Courier New', monospace;
+            color: #FFAA00;
+            text-shadow: 
+                0 0 30px rgba(255, 170, 0, 0.7),
+                0 0 60px rgba(255, 170, 0, 0.3);
+            animation: timerPulse 2s ease-in-out infinite;
+            line-height: 1;
+        }
+        
+        @keyframes timerPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .timer-label {
+            font-size: 1.8em;
+            margin-top
