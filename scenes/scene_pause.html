@@ -138,4 +138,161 @@
         
         .timer-label {
             font-size: 1.8em;
-            margin-top
+            margin-top: 10px;
+            opacity: 0.8;
+        }
+        
+        .scene-message {
+            font-size: 2em;
+            max-width: 900px;
+            line-height: 1.6;
+            margin: 30px 0 40px;
+            padding: 25px 40px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 152, 0, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .scene-widgets {
+            display: flex;
+            gap: 40px;
+            margin-top: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .widget {
+            background: linear-gradient(135deg, 
+                rgba(255, 152, 0, 0.2), 
+                rgba(239, 108, 0, 0.2));
+            padding: 20px 35px;
+            border-radius: 15px;
+            font-size: 1.4em;
+            border: 2px solid rgba(255, 152, 0, 0.4);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            min-width: 200px;
+            justify-content: center;
+            transition: all 0.4s ease;
+        }
+        
+        .widget:hover {
+            transform: translateY(-5px);
+            background: linear-gradient(135deg, 
+                rgba(255, 152, 0, 0.4), 
+                rgba(239, 108, 0, 0.4));
+            box-shadow: 0 15px 30px rgba(255, 152, 0, 0.2);
+        }
+        
+        .progress-bar {
+            width: 800px;
+            height: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            margin-top: 30px;
+            overflow: hidden;
+            border: 2px solid rgba(255, 152, 0, 0.3);
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(to right, #FF9800, #EF6C00);
+            width: 100%;
+            border-radius: 8px;
+            animation: progressShrink 300s linear forwards;
+        }
+        
+        @keyframes progressShrink {
+            from { width: 100%; }
+            to { width: 0%; }
+        }
+        
+        .coffee-animation {
+            position: absolute;
+            bottom: 100px;
+            right: 200px;
+            font-size: 4em;
+            z-index: 5;
+            animation: coffeeFloat 4s ease-in-out infinite;
+        }
+        
+        @keyframes coffeeFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .steam {
+            position: absolute;
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2em;
+            opacity: 0.7;
+            animation: steamRise 2s ease-in-out infinite;
+        }
+        
+        @keyframes steamRise {
+            0% { 
+                transform: translateX(-50%) translateY(0); 
+                opacity: 0; 
+            }
+            50% { opacity: 0.7; }
+            100% { 
+                transform: translateX(-50%) translateY(-100px); 
+                opacity: 0; 
+            }
+        }
+    </style>
+    
+    <script>
+        // Timer pour la pause
+        document.addEventListener('DOMContentLoaded', () => {
+            const timerEl = document.getElementById('pause-timer');
+            const progressEl = document.getElementById('pause-progress');
+            let timeLeft = 300; // 5 minutes en secondes
+            
+            function updateTimer() {
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                
+                timerEl.textContent = 
+                    `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                // Mise à jour barre de progression
+                const progressPercent = (timeLeft / 300) * 100;
+                progressEl.style.width = `${progressPercent}%`;
+                
+                // Changement de couleur
+                if (timeLeft < 60) {
+                    timerEl.style.color = '#FF4444';
+                    timerEl.style.animation = 'timerPulse 0.5s ease-in-out infinite';
+                    progressEl.style.background = 'linear-gradient(to right, #FF4444, #FF0000)';
+                } else if (timeLeft < 120) {
+                    timerEl.style.color = '#FFAA44';
+                    progressEl.style.background = 'linear-gradient(to right, #FFAA44, #FF8800)';
+                }
+                
+                if (timeLeft <= 0) {
+                    timerEl.textContent = "REPRISE !";
+                    timerEl.style.color = '#00FF00';
+                    timerEl.style.textShadow = '0 0 40px #00FF00';
+                    progressEl.style.width = '0%';
+                    timerEl.style.animation = 'timerPulse 0.3s ease-in-out infinite';
+                }
+                
+                timeLeft--;
+            }
+            
+            updateTimer();
+            const timerInterval = setInterval(updateTimer, 1000);
+            
+            // Nettoyer à la fin
+            setTimeout(() => {
+                clearInterval(timerInterval);
+            }, 301000); // 5 minutes + 1 seconde
+        });
+    </script>
+</div>
